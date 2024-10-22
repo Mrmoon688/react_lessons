@@ -1,0 +1,93 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "title": "Gather Requirements",
+            "description": "Collect all necessary requirements from stakeholders.",
+            "status": "completed",
+            "priority": "high",
+            "dueDate": "2024-10-10",
+            "assignedTo": 1,
+            "createdAt": "2024-10-01",
+            "updatedAt": "2024-10-05"
+        },
+        {
+            "id": 2,
+            "title": "Design Wireframes",
+            "description": "Create wireframes for the main pages of the website.",
+            "status": "in progress",
+            "priority": "medium",
+            "dueDate": "2024-10-15",
+            "assignedTo": 2,
+            "createdAt": "2024-10-02",
+            "updatedAt": "2024-10-20"
+        },
+        {
+            "id": 3,
+            "title": "Develop Frontend",
+            "description": "Build the frontend using HTML, CSS, and JavaScript.",
+            "status": "not started",
+            "priority": "high",
+            "dueDate": "2024-10-25",
+            "assignedTo": 1,
+            "createdAt": "2024-10-03",
+            "updatedAt": "2024-10-20"
+        },
+        {
+            "id": 4,
+            "title": "Set Up Hosting",
+            "description": "Choose a hosting provider and set up the website hosting.",
+            "status": "not started",
+            "priority": "medium",
+            "dueDate": "2024-10-30",
+            "assignedTo": 2,
+            "createdAt": "2024-10-04",
+            "updatedAt": "2024-10-20"
+        },
+        {
+            "id": 5,
+            "title": "Test Website",
+            "description": "Conduct testing for functionality and usability.",
+            "status": "not started",
+            "priority": "high",
+            "dueDate": "2024-11-05",
+            "assignedTo": 1,
+            "createdAt": "2024-10-05",
+            "updatedAt": "2024-10-20"
+        },
+        {
+            "id": 6,
+            "title": "Launch Website",
+            "description": "Deploy the website to the live server and announce the launch.",
+            "status": "not started",
+            "priority": "high",
+            "dueDate": "2024-11-10",
+            "assignedTo": 2,
+            "createdAt": "2024-10-06",
+            "updatedAt": "2024-10-20"
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "name": "Alice",
+            "email": "alice@example.com"
+        },
+        {
+            "id": 2,
+            "name": "Bob",
+            "email": "bob@example.com"
+        }
+    ],
+    "statuses": [
+        "not started",
+        "in progress",
+        "completed",
+        "on hold"
+    ],
+    "priorities": [
+        "low",
+        "medium",
+        "high"
+    ]
+}
