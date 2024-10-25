@@ -21,7 +21,8 @@ const App = () => {
     });
     const data = await res.json();
 
-    setTask([...tasks, data]);
+    // setTask([...tasks, data]);
+    fetchTask();
     setSending(false);
   };
 
@@ -43,9 +44,8 @@ const App = () => {
     });
     const data = await res.json();
     console.log(data);
-    setTask(
-      tasks.map((el) => (el.id === id ? { ...el, isDone: !el.isDone } : el))
-    );
+    setTask();
+    tasks.map((el) => (el.id === id ? { ...el, isDone: !el.isDone } : el));
   };
   const fetchTask = async () => {
     setTaskLoading(true);
@@ -64,8 +64,7 @@ const App = () => {
       <Heading />
       <CreateTask sending={sending} addTask={addTask} />
       <TaskList tasks={tasks} removeTask={removeTask} doneTask={doneTask} />
-      {taskLoading && <SkeletonLoader/>}
-      
+      {taskLoading && <SkeletonLoader />}
     </div>
   );
 };

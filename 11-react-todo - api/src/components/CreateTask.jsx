@@ -32,7 +32,7 @@ const CreateTask = ({ addTask, sending }) => {
       />
       <button
         onClick={handleAddTaskBtn}
-        className="disabled:opacity-50 border-2 rounded-r-lg border-slate-500 px-3 py-2 bg-slate-500 text-white"
+        className="disabled:opacity-50 border-2 rounded-r-lg border-slate-500 px-3 py-3 bg-slate-500 text-white"
         disabled={sending}
       >
         {sending ? (

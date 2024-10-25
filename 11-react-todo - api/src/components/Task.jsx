@@ -11,7 +11,7 @@ const Task = ({ job: { id, task, isDone }, removeTask, doneTask }) => {
     doneTask(id, isDone);
   };
   return (
-    <div className="shadow border-2 rounded-md border-slate-500 px-3 py-2 mb-1 flex items-center  justify-between">
+    <div className="shadow border-2 rounded-md border-slate-500 px-2 py-3 mb-3 flex items-center  justify-between">
       <div className="flex gap-3 items-center">
         <input
           type="checkbox"
@@ -23,7 +23,7 @@ const Task = ({ job: { id, task, isDone }, removeTask, doneTask }) => {
       </div>
       <button
         onClick={handleRemoveTaskBtn}
-        className=" bg-red-400 px-2 py-1 rounded-md"
+        className=" bg-red-200 px-3 py-2 rounded-md"
       >
         Delete
       </button>
