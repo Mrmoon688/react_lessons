@@ -8,7 +8,7 @@ const Task = ({ job: { id, task, isDone }, removeTask, doneTask }) => {
     }
   };
   const handleOnChange = () => {
-    doneTask(id,isDone);
+    doneTask(id, isDone);
   };
   return (
     <div className="shadow border-2 rounded-md border-slate-500 px-3 py-4 mb-1 flex items-center  justify-between">
