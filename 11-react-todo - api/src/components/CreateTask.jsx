@@ -36,7 +36,7 @@ const CreateTask = ({ addTask, sending }) => {
         disabled={sending}
       >
         {sending ? (
-          <l-ripples size="20" speed="2" color="white"></l-ripples>
+          <l-ripples size="20" speed="2" color="white"></l-ripples> 
         ) : (
           "Add Task"
         )}

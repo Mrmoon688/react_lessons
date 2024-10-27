@@ -20,8 +20,9 @@ const App = () => {
       body: JSON.stringify(newTask),
     });
     const data = await res.json();
-
+    console.log(data);
     // setTask([...tasks, data]);
+    //! revalidate ----
     fetchTask();
     setSending(false);
   };
@@ -44,8 +45,8 @@ const App = () => {
     });
     const data = await res.json();
     console.log(data);
-    setTask();
-    tasks.map((el) => (el.id === id ? { ...el, isDone: !el.isDone } : el));
+    fetchTask();
+    // tasks.map((el) => (el.id === id ? { ...el, isDone: !el.isDone } : el));
   };
   const fetchTask = async () => {
     setTaskLoading(true);

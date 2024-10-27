@@ -2,13 +2,18 @@
   "tasks": [
     {
       "task": "Apple",
-      "isDone": false,
+      "isDone": true,
       "id": 1
     },
     {
       "task": "Orange",
+      "isDone": true,
+      "id": 2
+    },
+    {
+      "task": "Lime",
       "isDone": false,
-      "id": 5
+      "id": 3
     }
   ]
 }
