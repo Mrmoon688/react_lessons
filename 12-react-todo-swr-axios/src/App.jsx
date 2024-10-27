@@ -1,37 +1,95 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
 import Heading from "./components/Heading";
 import CreateTask from "./components/CreateTask";
-import TaskList from "./components/TaskList";
+import useSWR, { useSWRConfig } from "swr";
+import Task from "./components/Task";
+import axios from "axios";
+import SkeletonLoader from "./components/SkeletonLoader";
+import { useState } from "react";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const App = () => {
-  //FIXME: app useState(); 
-  const [tasks, setTask] = useState([
-    { id: 1, task: "Finish homework", isDone: false },
-    { id: 2, task: "Grocery shopping", isDone: false },
-    { id: 3, task: "Clean the garage", isDone: false },
-    { id: 4, task: "Pay utility bills", isDone: false },
-    { id: 5, task: "Call mom", isDone: false },
-  ]);
+  const [sending, setSending] = useState(false);
+  console.log(import.meta.env.VITE_BASE_URL);
+  //FIXME: app useState();
+  // const [tasks, setTask] = useState([]);
+  //! server api data record
+  // const { object} = useSWR("endpoint", fetcher); //object {data,error,isLoading}
+  const { data, error, isLoading } = useSWR(
+    `${import.meta.env.VITE_BASE_URL}/tasks`,
+    fetcher
+  );
 
-  const addTask = (newTask) => {
-    setTask([...tasks, newTask]);
+  const { mutate } = useSWRConfig();
+
+  const todoApi = axios.create({
+    baseURL: `${import.meta.env.VITE_BASE_URL}/tasks`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  //todo: addTask func
+  const addTask = async (newTask) => {
+    setSending(true);
+    // await axios.post("http://localhost:5000/tasks", newTask, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+
+    await todoApi.post("/", newTask);
+    mutate(`${import.meta.env.VITE_BASE_URL}/tasks`); //!revalidation
+    setSending(false);
   };
 
-  const removeTask = (id) => {
-    setTask(tasks.filter((task) => task.id !== id));
+  //todo: removeTask func
+  const removeTask = async (id) => {
+    await todoApi.delete(`/${id}`);
+    mutate(`${import.meta.env.VITE_BASE_URL}/tasks`);
   };
 
-  const doneTask = (id) => {
-    setTask(
-      tasks.map((el) => (el.id === id ? { ...el, isDone: !el.isDone } : el))
+  //todo: doneTask func
+  const doneTask = async (id, currentState) => {
+    await todoApi.patch(
+      `/${id}`,
+      {
+        isDone: !currentState,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
+    mutate(`${import.meta.env.VITE_BASE_URL}/tasks`);
   };
   return (
     <div className="p-10">
       <Heading />
-      <CreateTask addTask={addTask} />
-      <TaskList tasks={tasks} removeTask={removeTask} doneTask={doneTask} />
+      <CreateTask addTask={addTask} sending={sending} />
+      {isLoading ? (
+        <SkeletonLoader />
+      ) : (
+        <>
+          <div className=" ">
+            <h3 className="font-bold font-serif text-xl mb-3">
+              Task List ({data.length},Done{" "}
+              {data.filter((el) => el.isDone).length})
+            </h3>
+            {data.map((el) => (
+              <Task
+                doneTask={doneTask}
+                removeTask={removeTask}
+                job={el}
+                key={el.id}
+              /> //todo: job is props
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
