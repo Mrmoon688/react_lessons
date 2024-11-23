@@ -1,8 +1,7 @@
 import React from "react";
 import Container from "../components/Container";
 import ModuleBtn from "../components/ModuleBtn";
-import { HiCircleStack } from "react-icons/hi2";
-import { HiDocumentText } from "react-icons/hi2";
+import { HiShoppingBag, HiDocumentText } from "react-icons/hi2";
 import { HiDesktopComputer } from "react-icons/hi";
 
 const DashboardPage = () => {
@@ -14,7 +13,7 @@ const DashboardPage = () => {
           <div className="col-span-1 row-span-1">
             <ModuleBtn
               name={"Product Module"}
-              icon={<HiCircleStack className="size-14" />}
+              icon={<HiShoppingBag className="size-14" />}
               url={"/product"}
             />
           </div>

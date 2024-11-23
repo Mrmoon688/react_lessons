@@ -8,8 +8,8 @@ const ProductPage = () => {
   return (
     <section>
       <Container>
-        <BreadCrumb currentPageTitle={"Product Module"} />
-        
+        <BreadCrumb currentPageTitle={"Product Module"}  />
+
         <ProductList />
       </Container>
     </section>

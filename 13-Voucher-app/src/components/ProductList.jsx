@@ -1,8 +1,21 @@
 import React from "react";
 import { HiSearch } from "react-icons/hi";
-import { HiPencil, HiPlus, HiTrash } from "react-icons/hi2";
+import { HiPlus } from "react-icons/hi2";
+import useSWR from "swr";
+import ProductListSkeletonLoader from "./ProductListSkeletonLoader";
+import ProductListEmptyState from "./ProductListEmptyState";
+import ProductRow from "./ProductRow";
+import ProductCreatePage from "../pages/ProductCreatePage";
+import { Link } from "react-router-dom";
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
 const ProductList = () => {
+  const { data, isLoading, error } = useSWR(
+    import.meta.env.VITE_API_URL + "/products",
+    fetcher
+  );
+  // console.log(import.meta.env.VITE_API_URL);
+
   return (
     <div>
       <div className="flex justify-between mb-3 items-center">
@@ -20,10 +33,13 @@ const ProductList = () => {
           </div>
         </div>
         <div className="">
-          <button className="flex justify-center items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <Link
+            to={"/product/create"}
+            className="flex justify-center items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
             Add New Product
             <HiPlus />
-          </button>
+          </Link>
         </div>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -49,44 +65,15 @@ const ProductList = () => {
             </tr>
           </thead>
           <tbody>
-            {/* empty state */}
-            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 hidden last:table-row">
-              <td colSpan={5} className="px-6 py-4 text-center">
-                There is no Product
-              </td>
-            </tr>
-            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-              <td className="px-6 py-4 ">1</td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4 text-end">$2999</td>
-              <td className="px-6 py-4 text-end">
-                <p className="text-xs">10 29 2024</p>
-                <p className="text-xs">11:45 Am</p>
-              </td>
-
-              <td className="px-6 py-4 text-end">
-                <div className="inline-flex rounded-md shadow-sm">
-                  <a
-                    href="#"
-                    aria-current="page"
-                    className="px-4 py-2 text-sm font-medium text-blue-500 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
-                  >
-                    <HiPencil />
-                  </a>
-                  <a
-                    href="#"
-                    className="px-4 py-2 text-sm font-medium text-red-600 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
-                  >
-                    <HiTrash />
-                  </a>
-                </div>
-              </td>
-            </tr>
+            {isLoading ? (
+              <ProductListSkeletonLoader />
+            ) : data.length === 0 ? (
+              <ProductListEmptyState />
+            ) : (
+              data.map((product) => (
+                <ProductRow key={product.id} product={product} />
+              ))
+            )}
           </tbody>
         </table>
       </div>

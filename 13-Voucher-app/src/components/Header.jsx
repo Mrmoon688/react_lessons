@@ -3,7 +3,7 @@ import Container from "./Container";
 
 const Header = () => {
   return (
-    <header className="mb-5">
+    <header className="mb-10">
       <Container>
         <h1 className="text-3xl font-bold ">Voucher App</h1>
         <p className="text-stone-600 ">MMS Software</p>

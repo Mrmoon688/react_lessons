@@ -8,7 +8,7 @@ const VoucherPage = () => {
     <section>
       <Container>
         <BreadCrumb currentPageTitle={"Voucher Page"} />
-        <VoucherList/>
+        <VoucherList />
       </Container>
     </section>
   );

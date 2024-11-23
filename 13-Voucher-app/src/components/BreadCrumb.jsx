@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { HiHome, HiMiniHome } from "react-icons/hi2";
 import { HiChevronRight } from "react-icons/hi2";
 
-const BreadCrumb = ({ currentPageTitle }) => {
+const BreadCrumb = ({ currentPageTitle, links }) => {
   return (
     <div className="flex gap-3 mb-5 w-full">
       <nav className="flex" aria-label="Breadcrumb">
@@ -13,10 +13,23 @@ const BreadCrumb = ({ currentPageTitle }) => {
               to={"/"}
               className="gap-2 inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
             >
-              <HiMiniHome/>
+              <HiMiniHome />
               Home
             </Link>
           </li>
+          {links &&
+            links.map((link, index) => (
+              <li key={index} className="inline-flex items-center">
+                <Link
+                  to={link.path}
+                  className="gap-2 inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+                >
+                  <HiChevronRight />
+                  {link.title}
+                </Link>
+              </li>
+            ))}
+
           <li aria-current="page">
             <div className="flex items-center">
               <HiChevronRight />
