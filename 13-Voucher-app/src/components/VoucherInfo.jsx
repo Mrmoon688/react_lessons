@@ -5,6 +5,7 @@ import SaleForm from "./SaleForm";
 import VoucherTable from "./VoucherTable";
 import useRecordStore from "../stores/useRecordStore";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 ring2.register();
 
@@ -213,7 +214,6 @@ const VoucherInfo = () => {
 
         {/* Submit- save Product */}
         <button
-
           type="submit"
           form="infoForm"
           className="py-2.5 px-5 inline-flex gap-3 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-gray-200 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"

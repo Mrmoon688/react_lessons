@@ -4,6 +4,7 @@ import { HiPencil, HiTrash } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import VoucherListRow from "./VoucherListRow";
 import useSWR from "swr";
+import VoucherListSkeletonLoader from "./VoucherListSkeletonLoader";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const VoucherList = () => {
@@ -42,7 +43,7 @@ const VoucherList = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                #
+                Voucher Id
               </th>
               <th scope="col" className="px-6 py-3">
                 Customer Name
@@ -66,10 +67,13 @@ const VoucherList = () => {
                 There is no Voucher
               </td>
             </tr>
-            {!isLoading &&
+            {isLoading ? (
+              <VoucherListSkeletonLoader />
+            ) : (
               data?.map((voucher, index) => (
                 <VoucherListRow key={index} voucher={voucher} />
-              ))}
+              ))
+            )}
           </tbody>
         </table>
       </div>

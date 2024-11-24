@@ -4,23 +4,14 @@ import { useSWRConfig } from "swr";
 import { infinity } from "ldrs";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import ShowDate from "./ShowDate";
 
 infinity.register();
 
 const ProductRow = ({ product: { id, product_name, price, created_at } }) => {
   const { mutate } = useSWRConfig();
   const [isDeleting, setIsDeleting] = useState(false);
-  const date = new Date(created_at);
-  const currentDate = date.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-  const currentTime = date.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
+
 
   const handleDeleteBtn = async () => {
     setIsDeleting(true);
@@ -43,8 +34,7 @@ const ProductRow = ({ product: { id, product_name, price, created_at } }) => {
       </th>
       <td className="px-6 py-4 text-end">{price}</td>
       <td className="px-6 py-4 text-end">
-        <p className="text-xs">{currentDate}</p>
-        <p className="text-xs">{currentTime.toUpperCase()}</p>
+        <ShowDate timestamp={created_at} />
       </td>
 
       <td className="px-6 py-4 text-end">
