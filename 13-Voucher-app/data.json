@@ -306,6 +306,254 @@
       "tax": 182.00000000000003,
       "netTotal": 2782,
       "id": 5
+    },
+    {
+      "voucher_id": "INV-20241124-114085",
+      "customer_name": "kyaw kyaw",
+      "customer_email": "ayetun@gmail.com",
+      "sale_date": "2024-11-24",
+      "redirect_to_details": true,
+      "all_correct": true,
+      "records": [
+        {
+          "id": 1732440631776,
+          "product": {
+            "id": 3,
+            "product_name": "E-commerce Development",
+            "price": 1200,
+            "created_at": "2024-10-27T09:30:00+07:00"
+          },
+          "quantity": "2",
+          "cost": 2400,
+          "created_at": "2024-11-24T09:30:31.776Z"
+        },
+        {
+          "id": 1732440634429,
+          "product": {
+            "id": 8,
+            "product_name": "Website Maintenance Package",
+            "price": 250,
+            "created_at": "2024-10-22T14:00:00+07:00"
+          },
+          "quantity": "1",
+          "cost": 250,
+          "created_at": "2024-11-24T09:30:34.429Z"
+        },
+        {
+          "id": 1732440638941,
+          "product": {
+            "id": 9,
+            "product_name": "Performance Optimization Service",
+            "price": 350,
+            "created_at": "2024-10-21T16:15:00+07:00"
+          },
+          "quantity": "2",
+          "cost": 700,
+          "created_at": "2024-11-24T09:30:38.941Z"
+        }
+      ],
+      "total": 3350,
+      "tax": 234.50000000000003,
+      "netTotal": 3584.5,
+      "id": 6
+    },
+    {
+      "voucher_id": "INV-20241130-909012",
+      "customer_name": "sunshine",
+      "customer_email": "sunshine@gmail.com",
+      "sale_date": "2024-11-30",
+      "redirect_to_details": true,
+      "all_correct": true,
+      "records": [
+        {
+          "id": 1732953721217,
+          "product": {
+            "id": 1,
+            "product_name": "Custom API Development",
+            "price": 100,
+            "created_at": "2024-10-29T14:26:00+07:00"
+          },
+          "quantity": "2",
+          "cost": 200,
+          "created_at": "2024-11-30T08:02:01.217Z"
+        },
+        {
+          "id": 1732953725416,
+          "product": {
+            "id": 3,
+            "product_name": "E-commerce Development",
+            "price": 1200,
+            "created_at": "2024-10-27T09:30:00+07:00"
+          },
+          "quantity": "7",
+          "cost": 8400,
+          "created_at": "2024-11-30T08:02:05.416Z"
+        },
+        {
+          "id": 1732953729088,
+          "product": {
+            "id": 7,
+            "product_name": "Mobile-Friendly Website Conversion",
+            "price": 600,
+            "created_at": "2024-10-23T08:00:00+07:00"
+          },
+          "quantity": "2",
+          "cost": 1200,
+          "created_at": "2024-11-30T08:02:09.088Z"
+        }
+      ],
+      "total": 9800,
+      "tax": 686.0000000000001,
+      "netTotal": 10486,
+      "id": 7
+    },
+    {
+      "voucher_id": "INV-20241130-623026",
+      "customer_name": "thu thu",
+      "customer_email": "thuthu@gmail.com",
+      "sale_date": "2024-11-30",
+      "redirect_to_details": true,
+      "all_correct": true,
+      "records": [
+        {
+          "id": 1732954597274,
+          "product": {
+            "id": 1,
+            "product_name": "Custom API Development",
+            "price": 100,
+            "created_at": "2024-10-29T14:26:00+07:00"
+          },
+          "quantity": "2",
+          "cost": 200,
+          "created_at": "2024-11-30T08:16:37.274Z"
+        },
+        {
+          "id": 1732954600009,
+          "product": {
+            "id": 4,
+            "product_name": "SEO Optimization Service",
+            "price": 300,
+            "created_at": "2024-10-26T11:45:00+07:00"
+          },
+          "quantity": "2",
+          "cost": 600,
+          "created_at": "2024-11-30T08:16:40.009Z"
+        },
+        {
+          "id": 1732954602313,
+          "product": {
+            "id": 3,
+            "product_name": "E-commerce Development",
+            "price": 1200,
+            "created_at": "2024-10-27T09:30:00+07:00"
+          },
+          "quantity": "1",
+          "cost": 1200,
+          "created_at": "2024-11-30T08:16:42.313Z"
+        },
+        {
+          "id": 1732954604745,
+          "product": {
+            "id": 6,
+            "product_name": "Content Management System Setup",
+            "price": 400,
+            "created_at": "2024-10-24T15:30:00+07:00"
+          },
+          "quantity": "1",
+          "cost": 400,
+          "created_at": "2024-11-30T08:16:44.745Z"
+        },
+        {
+          "id": 1732954607113,
+          "product": {
+            "id": 10,
+            "product_name": "Social Media Integration Service",
+            "price": 200,
+            "created_at": "2024-10-20T12:30:00+07:00"
+          },
+          "quantity": 1,
+          "cost": 200,
+          "created_at": "2024-11-30T08:16:47.113Z"
+        },
+        {
+          "id": 1732954622281,
+          "product": {
+            "id": 8,
+            "product_name": "Website Maintenance Package",
+            "price": 250,
+            "created_at": "2024-10-22T14:00:00+07:00"
+          },
+          "quantity": "3",
+          "cost": 750,
+          "created_at": "2024-11-30T08:17:02.281Z"
+        },
+        {
+          "id": 1732954627505,
+          "product": {
+            "id": 5,
+            "product_name": "Web Application Development",
+            "price": 800,
+            "created_at": "2024-10-25T13:00:00+07:00"
+          },
+          "quantity": "2",
+          "cost": 1600,
+          "created_at": "2024-11-30T08:17:07.505Z"
+        }
+      ],
+      "total": 4950,
+      "tax": 346.50000000000006,
+      "netTotal": 5296.5,
+      "id": 8
+    },
+    {
+      "voucher_id": "INV-20241201-568643",
+      "customer_name": "homeda",
+      "customer_email": "homeda@gmail.com",
+      "sale_date": "2024-12-01",
+      "redirect_to_details": true,
+      "all_correct": true,
+      "records": [
+        {
+          "id": 1733043134742,
+          "product": {
+            "id": 4,
+            "product_name": "SEO Optimization Service",
+            "price": 300,
+            "created_at": "2024-10-26T11:45:00+07:00"
+          },
+          "quantity": "12",
+          "cost": 3600,
+          "created_at": "2024-12-01T08:52:14.742Z"
+        },
+        {
+          "id": 1733043139020,
+          "product": {
+            "id": 5,
+            "product_name": "Web Application Development",
+            "price": 800,
+            "created_at": "2024-10-25T13:00:00+07:00"
+          },
+          "quantity": "5",
+          "cost": 4000,
+          "created_at": "2024-12-01T08:52:19.020Z"
+        },
+        {
+          "id": 1733043142675,
+          "product": {
+            "id": 8,
+            "product_name": "Website Maintenance Package",
+            "price": 250,
+            "created_at": "2024-10-22T14:00:00+07:00"
+          },
+          "quantity": "3",
+          "cost": 750,
+          "created_at": "2024-12-01T08:52:22.675Z"
+        }
+      ],
+      "total": 8350,
+      "tax": 584.5,
+      "netTotal": 8934.5,
+      "id": 9
     }
   ]
 }

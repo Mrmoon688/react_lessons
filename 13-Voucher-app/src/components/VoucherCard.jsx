@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import useRecordStore from "../stores/useRecordStore";
 import printJS from "print-js";
+import html2pdf from "html2pdf.js";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const VoucherCard = () => {
@@ -18,7 +19,27 @@ const VoucherCard = () => {
 
   const handlePrint = () => {
     // window.print();
-    printJS({ printable: "printArea", type: "html" });
+    printJS({
+      printable: "printArea",
+      type: "html",
+      css: "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css",
+    });
+  };
+
+  const handlePdf = () => {
+    const element = document.getElementById("printArea");
+
+    // Configure options for html2pdf
+    const options = {
+      margin: 0,
+      filename: "download.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "a5", orientation: "portrait" },
+    };
+
+    // Trigger PDF download
+    html2pdf().from(element).set(options).save();
   };
   // console.log(data);
   if (isLoading)
@@ -98,8 +119,8 @@ const VoucherCard = () => {
     );
   //   console.log(id);
   return (
-    <div  className="flex flex-col items-center gap-5">
-      <div id="printArea" className="w-[14.8cm] shadow-lg p-5 bg-white">
+    <div className="flex flex-col items-center gap-5">
+      <div id="printArea" className="w-[14.8cm]  p-5 border">
         {/* Header */}
         <div className="flex justify-between mb-8">
           <div>
@@ -173,20 +194,18 @@ const VoucherCard = () => {
         </div>
 
         {/* Payment Details */}
-        <div className="mb-8 flex justify-between text-sm">
-          <div className="space-y-1 text-gray-600">
-            <h2 className="font-bold mb-2">Payment Transfer to</h2>
+        <div className=" grid grid-cols-2 mb-8  text-xs">
+          <div className="text-start col-span-1">
+            <h2 className="font-bold">Payment Transfer to</h2>
             <p>Kpay/Wave: 09250152018</p>
             <p>KBZ Bank: 0273010270502560l</p>
             <p>AYA Bank: 20003674121</p>
           </div>
-          <div className="flex justify-between text-sm">
-            <div className="text-end">
-              <h2 className="font-bold text-xl">MMS IT</h2>
-              <p>48, 1st Floor, Shan Kone St.</p>
-              <p>+959-250-152-018</p>
-              <p>enquiry@mms-it.com</p>
-            </div>
+          <div className="  text-end col-span-1 ">
+            <h2 className="font-bold ">MMS IT</h2>
+            <p>48, 1st Floor, Shan Kone St</p>
+            <p>+959-250-152-018</p>
+            <p>enquiry@mms-it.com</p>
           </div>
         </div>
         <div className=" text-sm border-t text-center p-5 font-bold">
@@ -194,12 +213,20 @@ const VoucherCard = () => {
           <p>ဝယ်ယူအားပေးမူ့အတွက် ကျေးဇူးတင်ပါတယ်။</p>
         </div>
       </div>
-      <button
-        onClick={handlePrint}
-        className=" gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Print
-      </button>
+      <div className="flex justify-center items-end gap-5">
+        <button
+          onClick={handlePrint}
+          className=" gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Print
+        </button>
+        <button
+          onClick={handlePdf}
+          className=" gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Download pdf
+        </button>
+      </div>
     </div>
   );
 };
