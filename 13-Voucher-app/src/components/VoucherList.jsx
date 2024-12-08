@@ -54,7 +54,12 @@ const VoucherList = () => {
                 className="absolute right-3 top-0 m-auto bottom-0"
                 onClick={handleClearSearch}
               >
-                <HiOutlineBackspace className="scale-100 active:scale-95 duration-200" fill="white" size="20" stroke="red" />
+                <HiOutlineBackspace
+                  className="scale-100 active:scale-95 duration-200"
+                  fill="white"
+                  size="20"
+                  stroke="red"
+                />
               </button>
             )}
           </div>
