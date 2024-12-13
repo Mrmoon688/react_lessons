@@ -11,7 +11,7 @@ const DashboardPage = () => {
       <Container>
         <div className="grid grid-cols-3 md:grid-cols-2 gap-5 mb-10">
           {/* product button module */}
-          <div className="col-span-1 row-span-1">
+          <div className="col-span-1 row-span-1 ">
             <ModuleBtn
               name={"Product Module"}
               icon={<HiShoppingBag className="size-14" />}

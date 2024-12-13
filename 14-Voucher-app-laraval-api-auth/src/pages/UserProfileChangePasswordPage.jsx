@@ -22,32 +22,37 @@ const UserProfileChangePasswordPage = () => {
 
   const navigate = useNavigate();
   const handleUpdatePassword = async (data) => {
-    console.log(data);
-    const res = await fetch(
-      import.meta.env.VITE_API_URL + `/user-profile/change-password`,
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log(data);
-    const json = await res.json();
-    if (res.status === 200) {
-      toast.success(json.message);
-      setUserCookie(JSON.stringify(json.user));
-      console.log(json.user);
-      removeCookie("my_token");
-      navigate("/");
-      reset();
+    if (data.new_password !== data.new_password_confirmation) {
+      toast.error("New Password does not match");
+      return;
     } else {
-      toast.error(json.message);
-      reset();
+      const res = await fetch(
+        import.meta.env.VITE_API_URL + `/user-profile/change-password`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(data);
+      const json = await res.json();
+      if (res.status === 200) {
+        toast.success(json.message);
+        setUserCookie(JSON.stringify(json.user));
+        console.log(json.user);
+        removeCookie("my_token");
+        navigate("/");
+        reset();
+      } else {
+        toast.error(json.message);
+        reset();
+      }
     }
+    console.log(data);
   };
   return (
     <section>

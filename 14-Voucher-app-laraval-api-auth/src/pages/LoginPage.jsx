@@ -26,14 +26,14 @@ const LoginPage = () => {
 
     const json = await res.json();
     if (res.status === 200) {
-      //   toast.success(json.message);
+        // toast.success(json.message);
       toast.success("Login Success");
       console.log(json);
       setToken(json.token);
       setUserCookie(JSON.stringify(json.user));
       navigate("/dashboard");
     } else {
-      toast.error(json.message);
+      toast.error("Password and Email does not match");
     }
     console.log(data);
   };
