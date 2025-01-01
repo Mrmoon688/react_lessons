@@ -1,14 +1,13 @@
 import React from "react";
+import Breadcrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
-import BreadCrumb from "../components/BreadCrumb";
 import VoucherInfo from "../components/VoucherInfo";
-// import SaleForm from "../components/SaleForm";
 
 const SalePage = () => {
   return (
     <section>
       <Container>
-        <BreadCrumb currentPageTitle={"Sale Module"} />
+        <Breadcrumb currentPageTitle={"Sale Module"} />
         <VoucherInfo />
       </Container>
     </section>

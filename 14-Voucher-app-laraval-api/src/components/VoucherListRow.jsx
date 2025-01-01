@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 infinity.register();
 
 const VoucherListRow = ({
-  voucher: { id, customer_name, customer_email, sale_date, voucher_id },
+  voucher: { id, customer_name, customer_email, sale_date, voucher_id,total,created_at },
 }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const { mutate } = useSWRConfig();
@@ -25,16 +25,20 @@ const VoucherListRow = ({
   };
   return (
     <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+      <td className="px-6 py-4 ">{id}</td>
       <td className="px-6 py-4 ">{voucher_id}</td>
+
       <th
         scope="row"
         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
       >
         {customer_name}
       </th>
-      <td className="px-6 py-4 text-end">{customer_email}</td>
+      <td className="px-6 py-4 text-start">{customer_email}</td>
+      <td className="px-6 py-4 text-end">{total}</td>
+
       <td className="px-6 py-4 text-end">
-        <ShowDate timestamp={sale_date} />
+        <ShowDate timestamp={created_at} />
       </td>
 
       <td className="px-6 py-4 text-end">

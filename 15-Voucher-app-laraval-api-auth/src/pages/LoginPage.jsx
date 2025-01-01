@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import useCookie from "react-use-cookie";
 
@@ -26,7 +26,7 @@ const LoginPage = () => {
 
     const json = await res.json();
     if (res.status === 200) {
-        // toast.success(json.message);
+      // toast.success(json.message);
       toast.success("Login Success");
       console.log(json);
       setToken(json.token);
@@ -39,6 +39,7 @@ const LoginPage = () => {
   };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
+      <Toaster position="top-right" />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"

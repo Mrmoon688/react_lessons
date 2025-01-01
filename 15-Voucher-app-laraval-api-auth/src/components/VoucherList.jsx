@@ -7,14 +7,20 @@ import VoucherListSkeletonLoader from "./VoucherListSkeletonLoader";
 import { debounce, throttle } from "lodash";
 import { HiOutlineBackspace } from "react-icons/hi2";
 import Pagination from "./Pagination";
+import useCookie from "react-use-cookie";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
 const VoucherList = () => {
+  const [token] = useCookie("my_token");
   const [search, setSearch] = useState("");
 
   const [fetchUrl, setFetchUrl] = useState(
     `${import.meta.env.VITE_API_URL}/vouchers`
   );
+
+  const fetcher = (url) =>
+    fetch(url, { headers: { Authorization: `Bearer ${token}` } }).then((res) =>
+      res.json()
+    );
   const updateFetchUrl = (url) => {
     setFetchUrl(url);
   };

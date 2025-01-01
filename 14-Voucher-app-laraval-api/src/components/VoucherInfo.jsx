@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ring2 } from "ldrs";
+
+import { tailspin } from "ldrs";
+import toast from "react-hot-toast";
 import SaleForm from "./SaleForm";
 import VoucherTable from "./VoucherTable";
 import useRecordStore from "../stores/useRecordStore";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-ring2.register();
+tailspin.register();
 
 const VoucherInfo = () => {
   const {
@@ -16,10 +17,12 @@ const VoucherInfo = () => {
     formState: { errors },
     reset,
   } = useForm();
+
+  const navigate = useNavigate();
+
   const [isSending, setIsSending] = useState(false);
 
   const { records, resetRecord } = useRecordStore();
-  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     setIsSending(true);
@@ -30,57 +33,72 @@ const VoucherInfo = () => {
 
     const currentVoucher = { ...data, records, total, tax, net_total };
 
+    console.log(currentVoucher);
+
     const res = await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
       method: "POST",
       body: JSON.stringify(currentVoucher),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
     });
-    const json = await res.json();
 
-    if (voucher_id === 201) {
-      toast.success("Successfully Created New Voucher");
+    console.log(res);
+
+    const json = await res.json();
+    console.log(json);
+
+    if (res.status === 201) {
+      toast.success("Voucher created successfully");
+
       resetRecord();
+
       reset();
+
       setIsSending(false);
-      if (data.redirect_to_details) {
-        navigate(`/voucher/detail/${json.id}`);
+
+      if (data.redirect_to_detail) {
+        navigate(`/voucher/detail/${json.voucher.id}`);
       }
     } else {
       toast.error(json.message);
     }
   };
 
+  // Utility function to generate a unique invoice number
   function generateInvoiceNumber() {
-    //get the Current date
+    // Get the current date
     const date = new Date();
 
     // Format the date as YYYYMMDD
     const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, "");
 
-    // generate a random number
-    const randomNumber = Math.floor(Math.random() * 1000000);
-    // combine the formatted date and the random number
+    // Generate a random number between 1000 and 9999
+    const randomNumber = Math.floor(1000 + Math.random() * 9000);
+
+    // Combine the formatted date and the random number
     const invoiceNumber = `INV-${formattedDate}-${randomNumber}`;
+
     return invoiceNumber;
   }
 
   return (
-    <div className="grid grid-cols-4 gap-5">
-      <div className="col-span-3">
-        {/* // sale Form */}
+    <div className=" grid grid-cols-4 gap-5">
+      <div className=" col-span-3">
         <SaleForm />
+
         <VoucherTable />
       </div>
-      <div className="col-span-1 border p-5">
+      <div className=" col-span-1">
         <form
           onSubmit={handleSubmit(onSubmit)}
+          className=" flex flex-col h-full"
           id="infoForm"
-          className="flex flex-col h-full"
         >
-          <div className="grid grid-cols-1  gap-2 mb-5">
-            {/* Voucher ID */}
-            <div className="col-span-1">
-              <div className="mb-2">
+          <div className=" grid grid-cols-1 gap-5 mb-10">
+            <div className=" col-span-1">
+              <div className="">
                 <label
                   className={`block mb-2 text-sm font-medium ${
                     errors.voucher_id ? "text-red-500" : "text-gray-900"
@@ -93,26 +111,22 @@ const VoucherInfo = () => {
                   defaultValue={generateInvoiceNumber()}
                   {...register("voucher_id", {
                     required: true,
-                    minLength: 3,
-                    maxLength: 30,
                   })}
                   className={`bg-gray-50 border ${
                     errors.voucher_id
-                      ? "border-red-300 focus:ring-red-500 focus:border-red-500"
+                      ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                       : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   } text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                 />
                 {errors.voucher_id?.type === "required" && (
-                  <p className="text-red-500 text-sm mt-1">
-                    Voucher Id is required
+                  <p className=" text-red-500 text-sm mt-1">
+                    Voucher ID is required
                   </p>
                 )}
               </div>
             </div>
-
-            {/* Customer Name */}
-            <div className="col-span-1">
-              <div className=" mb-2">
+            <div className=" col-span-1">
+              <div className="">
                 <label
                   className={`block mb-2 text-sm font-medium ${
                     errors.customer_name ? "text-red-500" : "text-gray-900"
@@ -127,21 +141,19 @@ const VoucherInfo = () => {
                   })}
                   className={`bg-gray-50 border ${
                     errors.customer_name
-                      ? "border-red-300 focus:ring-red-500 focus:border-red-500"
+                      ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                       : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   } text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                 />
                 {errors.customer_name?.type === "required" && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className=" text-red-500 text-sm mt-1">
                     Customer Name is required
                   </p>
                 )}
               </div>
             </div>
-
-            {/* Customer Email */}
-            <div className="col-span-1">
-              <div className=" mb-2">
+            <div className=" col-span-1">
+              <div className="">
                 <label
                   className={`block mb-2 text-sm font-medium ${
                     errors.customer_email ? "text-red-500" : "text-gray-900"
@@ -153,26 +165,22 @@ const VoucherInfo = () => {
                   type="text"
                   {...register("customer_email", {
                     required: true,
-                    minLength: 3,
-                    maxLength: 30,
                   })}
                   className={`bg-gray-50 border ${
-                    errors.voucher_id
-                      ? "border-red-300 focus:ring-red-500 focus:border-red-500"
+                    errors.customer_email
+                      ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                       : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   } text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                 />
                 {errors.customer_email?.type === "required" && (
-                  <p className="text-red-500 text-sm mt-1">
-                    Voucher Email is required
+                  <p className=" text-red-500 text-sm mt-1">
+                    Customer Email is required
                   </p>
                 )}
               </div>
             </div>
-
-            {/* Sale Date */}
-            <div className="col-span-1">
-              <div className=" mb-5">
+            <div className=" col-span-1">
+              <div className="">
                 <label
                   className={`block mb-2 text-sm font-medium ${
                     errors.sale_date ? "text-red-500" : "text-gray-900"
@@ -183,46 +191,39 @@ const VoucherInfo = () => {
                 <input
                   type="date"
                   defaultValue={new Date().toISOString().slice(0, 10)}
+                  // defaultValue={"2022-01-01"}
                   {...register("sale_date", {
                     required: true,
-                    minLength: 3,
-                    maxLength: 30,
                   })}
                   className={`bg-gray-50 border ${
                     errors.sale_date
-                      ? "border-red-300 focus:ring-red-500 focus:border-red-500"
+                      ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                       : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   } text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                 />
                 {errors.sale_date?.type === "required" && (
-                  <p className="text-red-500 text-sm mt-1">
+                  <p className=" text-red-500 text-sm mt-1">
                     Sale Date is required
                   </p>
                 )}
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-end items-end gap-5 mt-auto">
+          <div className=" flex flex-col justify-end items-end  mt-auto gap-3">
             <div className="flex items-center">
               <label
-                htmlFor="redirect_to_details"
+                htmlFor="redirect_to_detail"
                 className="me-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
-                Redirect to Voucher Details
+                Redirect to Voucher Detail
               </label>
-
               <input
-                {...register("redirect_to_details")}
-                required
+                {...register("redirect_to_detail")}
                 form="infoForm"
-                id="redirect_to_details"
+                id="redirect_to_detail"
                 type="checkbox"
                 value=""
-                className={`w-4 h-4 text-blue-600 bg-gray-100${
-                  errors.redirect_to_details
-                    ? " border-red-300 focus:ring-red-500   dark:focus:ring-red-600"
-                    : " border-gray-300 focus:ring-blue-500   dark:focus:ring-blue-600"
-                } rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
             </div>
             <div className="flex items-center">
@@ -230,9 +231,8 @@ const VoucherInfo = () => {
                 htmlFor="all-correct"
                 className="me-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
-                Make Sure all field are correct
+                Make sure all field are correct
               </label>
-
               <input
                 {...register("all_correct")}
                 required
@@ -240,30 +240,23 @@ const VoucherInfo = () => {
                 id="all-correct"
                 type="checkbox"
                 value=""
-                className={`w-4 h-4 text-blue-600 bg-gray-100${
-                  errors.all_correct
-                    ? " border-red-300 focus:ring-red-500   dark:focus:ring-red-600"
-                    : " border-gray-300 focus:ring-blue-500   dark:focus:ring-blue-600"
-                } rounded dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600`}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
             </div>
 
-            {/* Submit- save Product */}
             <button
               type="submit"
               form="infoForm"
-              className="py-2.5 px-5 me-2 gap-3 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-gray-200 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              className="text-white bg-blue-700 inline-flex gap-3 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <span>Confirm Voucher</span>
               {isSending && (
-                <l-ring-2
-                  size="25"
-                  stroke="3"
-                  stroke-length="0.25"
-                  bg-opacity="0.1"
-                  speed="0.8"
+                <l-tailspin
+                  size="20"
+                  stroke="5"
+                  speed="0.9"
                   color="white"
-                ></l-ring-2>
+                ></l-tailspin>
               )}
             </button>
           </div>
@@ -272,4 +265,5 @@ const VoucherInfo = () => {
     </div>
   );
 };
+
 export default VoucherInfo;

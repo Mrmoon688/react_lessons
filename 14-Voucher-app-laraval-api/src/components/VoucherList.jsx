@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { HiDesktopComputer, HiSearch, HiX } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import VoucherListRow from "./VoucherListRow";
 import useSWR from "swr";
 import VoucherListSkeletonLoader from "./VoucherListSkeletonLoader";
@@ -10,12 +10,23 @@ import Pagination from "./Pagination";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const VoucherList = () => {
+  const location = useLocation();
+  const [params, setParams] = useSearchParams();
+  // console.log(location);
   const [search, setSearch] = useState("");
 
   const [fetchUrl, setFetchUrl] = useState(
-    `${import.meta.env.VITE_API_URL}/vouchers`
+    import.meta.env.VITE_API_URL + "/vouchers" + location.search
   );
   const updateFetchUrl = (url) => {
+    console.log(url);
+    const currentUrl = new URL(url);
+    console.log(currentUrl);
+    const newSearchParams = new URLSearchParams(currentUrl.search);
+    console.log(newSearchParams);
+    const paraObject = Object.fromEntries(newSearchParams);
+    console.log(paraObject);
+    setParams(paraObject);
     setFetchUrl(url);
   };
   const searchInput = useRef("");
@@ -33,7 +44,7 @@ const VoucherList = () => {
   const { data, isLoading, error } = useSWR(fetchUrl, fetcher);
 
   // if (isLoading) return <p>isLoading....</p>;
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>
@@ -81,6 +92,9 @@ const VoucherList = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
+                #
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Voucher Id
               </th>
               <th scope="col" className="px-6 py-3">
@@ -89,6 +103,9 @@ const VoucherList = () => {
 
               <th scope="col" className="px-6 py-3 text-end">
                 Email
+              </th>
+              <th scope="col" className="px-6 py-3 text-end">
+                Total
               </th>
               <th scope="col" className="px-6 py-3 text-end">
                 Created At
